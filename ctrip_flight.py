@@ -6,10 +6,10 @@ import re
 import common
 
 
-def extract_flight_info(flights, city):
+def extract_flight_info(flights, city_name):
     item = {}
     for flight in flights:
-        item['from'] = city['name']
+        item['from'] = city_name
         item['to'] = flight['aCityName']
         item['ddate'] = flight['flightDetail']['departDateString']
         item['dweekday'] = flight['flightDetail']['departWeekday']
@@ -56,29 +56,29 @@ class CtripFlightsClass(object):
         for alpha in 'ABCDEF':
             for city in ret['ABCDEF'][alpha]:
                 city = city['data'].split('|')[1].split('(')
-                cities.append({'name': city[0], 'code': city[1][:-1]})
+                cities[city[0]] = city[1][:-1]
 
         for alpha in 'GHIJ':
             if alpha != 'I':
                 for city in ret['GHIJ'][alpha]:
                     city = city['data'].split('|')[1].split('(')
-                    cities.append({'name': city[0], 'code': city[1][:-1]})
+                    cities[city[0]] = city[1][:-1]
 
         for alpha in 'KLMN':
             for city in ret['KLMN'][alpha]:
                 city = city['data'].split('|')[1].split('(')
-                cities.append({'name': city[0], 'code': city[1][:-1]})
+                cities[city[0]] = city[1][:-1]
 
         for alpha in 'PQRSTUVW':
             if alpha not in 'UV':
                 for city in ret['PQRSTUVW'][alpha]:
                     city = city['data'].split('|')[1].split('(')
-                    cities.append({'name': city[0], 'code': city[1][:-1]})
+                    cities[city[0]] = city[1][:-1]
 
         for alpha in 'XYZ':
             for city in ret['XYZ'][alpha]:
                 city = city['data'].split('|')[1].split('(')
-                cities.append({'name': city[0], 'code': city[1][:-1]})
+                cities[city[0]] = city[1][:-1]
 
         return cities
 
@@ -100,10 +100,10 @@ class CtripFlightsClass(object):
                      }
 
         # post city search data
-        for city in cities:
+        for key, value in cities:
             url = 'http://flights.ctrip.com/fuzzy/search'
-            post_data['inputDepartureCity'] = city['code']
-            post_data['inputDepartureCityName'] = city['name']
+            post_data['inputDepartureCityName'] = key
+            post_data['inputDepartureCity'] = value
 
             # ONEWAY
             post_data['travelType'] = 'ONEWAY'
@@ -113,7 +113,7 @@ class CtripFlightsClass(object):
             ret = json.loads(response)['fuzzyFlightList']
             if len(ret) is not 0:
                 flights = ret[0]['flightResultList']
-                extract_flight_info(flights, city)
+                extract_flight_info(flights, key)
                 print 'OK'
 
                 # ROUNDTRIP

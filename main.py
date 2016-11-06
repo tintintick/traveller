@@ -8,7 +8,7 @@ import tuniu_product
 import ali_product
 import flights_search
 import time
-
+import search
 
 # product_url = "https://zt.dujia.qunar.com/tejia/tejia_get_list.php?callback=qjson&displaynum=50&page"
 # qproduct = qunar_product.QunarProductClass(product_url)
@@ -31,5 +31,5 @@ import time
 # aproduct = ali_product.AliProductsClass()
 # aproduct.get_products()
 
-fsearch = flights_search.FlightSearchClass()
+fsearch = search.FlightSearchClass()
 fsearch.search_flight('上海', '北京', '2017-10-01')
