@@ -11,6 +11,7 @@ def extract_flight_info(data, dept_city_name, arr_city_name, type_map):
     flights = data['fis']
 
     flight_list = []
+
     for flight in flights:
         type_code = flight['cf']['c']
         item = {'arr_city': arr_city_name,
@@ -24,7 +25,7 @@ def extract_flight_info(data, dept_city_name, arr_city_name, type_map):
                 'depPort': flight['dpbn'],
                 'deptTerm': flight['dsmsn'],
                 'deptTime': flight['dt'],
-                'onTimeRate': json.loads(flight['confort'])['HistoryPunctuality'],
+                'onTimeRate': '',
                 # 'basicCabinPrice': flight[''],
                 'bestDiscount': flight['scs'][0]['rate'],
                 'bestEclassPrice': flight['lp'],
@@ -33,6 +34,10 @@ def extract_flight_info(data, dept_city_name, arr_city_name, type_map):
                 # 'buildPrice': flight['buildPrice'],
                 # 'oilPrice': flight['oilPrice']
                 }
+        try:
+            item['onTimeRate'] = json.loads(flight['confort'])['HistoryPunctuality']
+        except:
+            pass
 
         flight_list.append(item)
 
