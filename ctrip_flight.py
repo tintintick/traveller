@@ -51,7 +51,7 @@ class CtripFlightsClass(object):
         ret = re.sub('data', '\'data\'', ret)
         ret = eval(ret)
 
-        cities = []
+        cities = {}
 
         for alpha in 'ABCDEF':
             for city in ret['ABCDEF'][alpha]:

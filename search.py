@@ -44,22 +44,10 @@ def extract_flight_info(data):
     return flight_list
 
 
-# def fake_request(u):
-#     url_dict = u.copy()
-#     url_dict['host'] = 'https://sjipiao.alitrip.com/'
-#     url_dict['path'] = 'flight_search_result.htm'
-#     url = common.compose_url(url_dict)
-#     dcap = dict(DesiredCapabilities.PHANTOMJS)
-#     dcap["phantomjs.page.settings.userAgent"] = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:25.0) Gecko/20100101 Firefox/25.0 ")
-#     driver = webdriver.PhantomJS(executable_path='/home/redhat/projects/traveller/script/phantomjs', desired_capabilities=dcap)
-#     driver.get(url)
-#     pass
-
-
 class FlightSearchClass(object):
     def __init__(self):
-        self.url_dict = {'host': 'https://sjipiao.alitrip.com',
-                         'path': '/searchow/search.htm',
+        self.url_dict = {'host': 'http://flights.ctrip.com/',
+                         'path': '/domesticsearch/search/SearchFirstRouteFlights',
                          'args': {'callback': 'ajson',
                                   'depCityName': '',
                                   'arrCityName': '',
@@ -86,7 +74,6 @@ class FlightSearchClass(object):
         self.url_dict['args']['depCityName'] = dept_city_name.encode('utf-8')
         self.url_dict['args']['arrCityName'] = arr_city_name.encode('utf-8')
         self.url_dict['args']['depDate'] = dept_date.encode('utf-8')
-        # fake_request(self.url_dict)
         url = common.compose_url(self.url_dict)
         ret = requests.get(url, headers=self.header).content.decode('gbk').encode('utf-8')
         start_pos = ret.index('{')

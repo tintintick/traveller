@@ -6,6 +6,25 @@ import common
 from lxml import etree
 
 
+def extract_product_json(cjson):
+    if cjson['Msg'] != 'success':
+        print 'get product json error\n'
+        return None
+    product_sum = cjson['PkgsCount']
+    products = cjson['Pkgs']
+    item = {}
+    for product in products:
+        item['description'] = product['BriefIntroduction2']
+        item['deptcity'] = product['DepartureCityName']
+        item['deptdate'] = product['Highlight3'].split('：'.decode('utf-8'))[1]
+        item['pname'] = product['ProductName']
+        item['type'] = product['ProductTypeName']
+        item['url'] = product['ProductUrl']
+        item['pprice'] = product['SalesPrice']
+        item['oprice'] = product['OriginalPrice']
+        item['discoutn'] = product['Discount']
+
+
 class CtripSaleProductsClass(object):
     def __init__(self):
         self.url_dict = {'host': 'http://vacations.ctrip.com',
@@ -75,25 +94,6 @@ class CtripSaleProductsClass(object):
             # store item into db
             pass
 
-    def extract_product_json(self, cjson):
-        if cjson['Msg'] != 'success':
-            print 'get product json error\n'
-            return None
-        product_sum = cjson['PkgsCount']
-        products = cjson['Pkgs']
-        item = {}
-        for product in products:
-            item['description'] = product['BriefIntroduction2']
-            item['deptcity'] = product['DepartureCityName']
-            item['deptdate'] = product['Highlight3'].split('：'.decode('utf-8'))[1]
-            item['pname'] = product['ProductName']
-            item['type'] = product['ProductTypeName']
-            item['url'] = product['ProductUrl']
-            item['pprice'] = product['SalesPrice']
-            item['oprice'] = product['OriginalPrice']
-            item['discoutn'] = product['Discount']
-            pass
-
     def get_products(self):
         page_path = ['/deals/grouptravel',  # GroupId":"1","ChannelId":"1"Channel:1
                      '/deals/freetravel',  # GroupId":"2","ChannelId":"2 Channel:2
@@ -104,4 +104,4 @@ class CtripSaleProductsClass(object):
             self.url_dict['path'] = path
             self.extract_first_page_products()
             cjson = self.request_products('post')
-            self.extract_product_json(cjson)
+            extract_product_json(cjson)
