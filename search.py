@@ -30,7 +30,6 @@ def extract_flight_info(data, dept_city_name, arr_city_name, type_map):
                 'bestDiscount': flight['scs'][0]['rate'],
                 'bestEclassPrice': flight['lp'],
                 'bestFclassPrice': flight['lcfp'],
-                'lowPriceCalendar': flight['lps']
                 # 'insurePrice': flight['cabin']['insureBasePrice'],
                 # 'buildPrice': flight['buildPrice'],
                 # 'oilPrice': flight['oilPrice']
@@ -87,5 +86,6 @@ class FlightSearchClass(object):
         #     return {'success': False, 'msg': 'error: need to login!'}
         type_map = get_craft_type(self.header)
         flight_list = extract_flight_info(ret, dept_city_name, arr_city_name, type_map)
-        ret_dict = {'success': True, 'flight_list': flight_list, 'flight_sum': str(len(flight_list))}
+        ret_dict = {'success': True, 'flight_list': flight_list, 'flight_sum': str(len(flight_list)),
+                    'low_price_calendar': ret['lps']}
         return ret_dict
