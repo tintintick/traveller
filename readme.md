@@ -15,8 +15,8 @@ ddate 出发日期
 	cities: {"\u4e07\u5dde": "WXN", 
 		     "\u4e09\u4e9a": "SYX", 
 		     "\u4e09\u660e": "SQJ", 
-		     "\u4e0a\u6d77": "SHA"
-			} 
+			 ...
+		     "\u4e0a\u6d77": "SHA"} 
 
 	# 从当前日期开始，近三个月的低价日历
 	low_price_calendar: {"2016-11-07":"490",
@@ -39,8 +39,7 @@ ddate 出发日期
 			      "dept_city": "\u6210\u90fd", 出发城市
 			      "flightNo": "CA4193", 航班号
 			      "flightType": "\u7a7a\u5ba2330|\u5bbd\u4f53", 机型
-			      "onTimeRate": "93.27%" 准点率
-                  } 
+			      "onTimeRate": "93.27%" 准点率} 
 	# 航班总数
 	flight_sum: (str) 
 
