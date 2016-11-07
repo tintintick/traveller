@@ -30,6 +30,7 @@ def extract_flight_info(data, dept_city_name, arr_city_name, type_map):
                 'bestDiscount': flight['scs'][0]['rate'],
                 'bestEclassPrice': flight['lp'],
                 'bestFclassPrice': flight['lcfp'],
+                'lowPriceCalendar': flight['lps']
                 # 'insurePrice': flight['cabin']['insureBasePrice'],
                 # 'buildPrice': flight['buildPrice'],
                 # 'oilPrice': flight['oilPrice']
