@@ -11,6 +11,20 @@ ddate 出发日期
 
 结果
 {
+	# 城市名称及在ctrip的对应code(Unicode编码)
+	cities: {"\u4e07\u5dde": "WXN", 
+		     "\u4e09\u4e9a": "SYX", 
+		     "\u4e09\u660e": "SQJ", 
+		     "\u4e0a\u6d77": "SHA"
+			} 
+
+	# 从当前日期开始，近三个月的低价日历
+	low_price_calendar: {"2016-11-07":"490",
+	                     "2016-11-08":"452",
+						 ...
+						 "2017-02-04":"250"} 
+
+	# 所有航班信息(Unicode编码)
 	flight_list: {"airCom": "\u4e2d\u56fd\u56fd\u822a", 航空公司
 			      "arrPort": "\u9996\u90fd\u56fd\u9645\u673a\u573aT3", 到达机场
 			      "arrTerm": "T3", 到达航站楼
@@ -26,7 +40,10 @@ ddate 出发日期
 			      "flightNo": "CA4193", 航班号
 			      "flightType": "\u7a7a\u5ba2330|\u5bbd\u4f53", 机型
 			      "onTimeRate": "93.27%" 准点率
-					} 所有航班信息(Unicode编码)
-	flight_sum: (str) 航班总数
-	success: (bool) 查询是否成功
+                  } 
+	# 航班总数
+	flight_sum: (str) 
+
+	# 查询是否成功
+	success: (bool) 
 }

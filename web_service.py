@@ -17,7 +17,7 @@ def search_flights():
     acity_name = args['acity'].encode('utf-8')
     acity_code = cities[acity_name]
     fsearch = search.FlightSearchClass()
-    return jsonify(fsearch.search_flight(dcity_name, dcity_code, acity_name, acity_code, args['ddate']))
+    return jsonify(fsearch.search_flight(cities, dcity_name, dcity_code, acity_name, acity_code, args['ddate']))
 
 
 @web_service.route('/flights/sale/')

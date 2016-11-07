@@ -76,7 +76,7 @@ class FlightSearchClass(object):
                        'cookie': '_abtest_userid=92262f04-2b5d-4667-8a3a-ab2cdf30cc3d; adscityen=Chengdu; Customer=HAL=ctrip_gb; FD_SearchHistorty={"type":"S","data":"S%24%u5317%u4EAC%28BJS%29%24BJS%242016-11-16%24%u4E0A%u6D77%28SHA%29%24SHA%24%24%24"}; _bfa=1.1478434194582.229h46.1.1478434194582.1478434194582.1.4; _ga=GA1.2.1274455234.1478434201; __zpspc=9.1.1478434201.1478434246.3%234%7C%7C%7C%7C%7C%23; _jzqco=%7C%7C%7C%7C1478434201319%7C1.1439032278.1478434201186.1478434216227.1478434246211.1478434216227.1478434246211.undefined.0.0.3.3; MKT_Pagesource=PC; _bfi=p1%3D101027%26p2%3D101027%26v1%3D4%26v2%3D3'
                        }
 
-    def search_flight(self, dept_city_name, dept_city_code, arr_city_name, arr_city_code, dept_date):
+    def search_flight(self, cities, dept_city_name, dept_city_code, arr_city_name, arr_city_code, dept_date):
         self.url_dict['args']['DCity1'] = dept_city_code
         self.url_dict['args']['ACity1'] = arr_city_code
         self.url_dict['args']['DDate1'] = dept_date.encode('utf-8')
@@ -87,5 +87,5 @@ class FlightSearchClass(object):
         type_map = get_craft_type(self.header)
         flight_list = extract_flight_info(ret, dept_city_name, arr_city_name, type_map)
         ret_dict = {'success': True, 'flight_list': flight_list, 'flight_sum': str(len(flight_list)),
-                    'low_price_calendar': ret['lps']}
+                    'low_price_calendar': ret['lps'], 'cities': cities}
         return ret_dict
